@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V01</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100">
+					<button id="add_databtn" type="button" style="float: right;
+					background: #36304a;
+					padding: 11px 33px;
+					border-radius: 12px;
+					margin-top: 21px;
+					margin-bottom: 16px;
+					color: #fff;" onclick="addData()"> <span style="display: none;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sync now</button>
+
+
+
+
+					<table>
+						<thead>
+							<tr class="table100-head">
+								<th class="column1">#</th>
+								<th class="column2">Title</th>
+								<th class="column3">Sale Price</th>
+								<th class="column4">Days on Market</th>
+								<th class="column5">Total Homes Sold</th>
+							</tr>
+						</thead>
+						<tbody id="td_bind">
+								
+								
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	
+ 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+
+	<script>
+
+getData();
+
+setInterval(function(){ getData(); }, 6000);
+
+		  
+
+		function addData(){
+
+			$(".spinner-border").show();
+			$('#add_databtn').prop('disabled', true);
+			$('#add_databtn').css('background-color', '#73689a');
+
+			$.ajax({
+				type: "POST",
+				url: "/api/addData",
+				cache: false,
+				success: function(data){
+					$('#add_databtn').prop('disabled', false);
+			       $('#add_databtn').css('background-color', '#36304a');
+				}
+				});
+				
+		}
+
+
+		function getData(){
+			$.ajax({
+				type: "GET",
+				url: "/api/getData",
+				cache: false,
+				success: function(data){
+					 console.log(data)
+
+					 var res = data.data;
+					 $("#td_bind").html('');
+
+					   for(let i = 0; i  <res.length; i++){
+						     var c = i +1;
+						       var html = '<tr>'+
+									'<td class="column1">'+c+'</td>'+
+									'<td class="column2">'+res[i].title+'</td>'+
+									'<td class="column3">'+res[i].saleprice+'</td>'+
+									'<td class="column4">'+res[i].Days_on_Market+'</td>'+
+									'<td class="column5">'+res[i].Total_Homes_Sold+'</td>'+
+								'</tr>';
+
+								$("#td_bind").append(html);
+					   }
+				}
+				});
+		}
+	</script>
+
+</body>
+</html>
