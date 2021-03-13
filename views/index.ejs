@@ -1,116 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Table V01</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+	<!--===============================================================================================-->
 
-<!--===============================================================================================-->
+	<style>
+		.col-sm-1 {
+			float: right;
+			width: 46px;
+			margin-bottom: 38px;
+		}
+
+		div#myTable_filter input {
+			background: #fff;
+		}
+
+		.dataTables_length label,
+		select {
+			color: #fff;
+		}
+
+		div#myTable_info {
+			color: #fff;
+		}
+
+		a#myTable_previous {
+			color: #fff !important;
+		}
+
+		a#myTable_next {
+			color: #fff !important;
+		}
+	</style>
 </head>
+
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
 				<div class="table100">
-					<button id="add_databtn" type="button" style="float: right;
-					background: #36304a;
-					padding: 11px 33px;
-					border-radius: 12px;
-					margin-top: 21px;
-					margin-bottom: 16px;
-					color: #fff;" onclick="addData()"> <span style="display: none;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sync now</button>
+
+
+					<div style="margin-bottom: 23px;">
+
+						<div class="col-sm-1">
+							<i class="fa fa-sign-out" style="font-size:36px; cursor: pointer;    color: #fff;"
+								aria-hidden="true"></i>
+
+							<!-- <button  type="button" style="float: right;
+								background: #36304a;
+								padding: 11px 33px;
+								border-radius: 12px;
+								margin-top: 21px;
+								margin-bottom: 16px;
+								color: #fff;" onclick="addData()">  Logout</button> -->
+
+						</div>
+
+						<div class="col-sm-1">
+							<i class="fa fa-gear" style="font-size:36px;cursor: pointer;    color: #fff;"></i>
+
+						</div>
+
+
+						<div class="col-sm-1">
+							<img src="/images/refresh.gif" id="gif_img" style="height: 35px;display: none;">
+							<i id="add_refreh" class="fa fa-refresh" style="font-size:36px; cursor: pointer;    color: #fff;"
+								aria-hidden="true" onclick="addData()"></i>
+
+
+							<!-- 
+							<button id="add_databtn" type="button" style="float: right;
+							background: #36304a;
+							padding: 11px 33px;
+							border-radius: 12px;
+							margin-top: 21px;
+							margin-bottom: 16px;
+							color: #fff;" onclick="addData()"> <span style="display: none;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sync now</button>
+		 -->
+
+						</div>
+					</div>
 
 
 
 
-					<table>
-						<thead>
-							<tr class="table100-head">
-								<th class="column1">#</th>
-								<th class="column2">Title</th>
-								<th class="column3">Sale Price</th>
-								<th class="column4">Days on Market</th>
-								<th class="column5">Total Homes Sold</th>
-							</tr>
-						</thead>
-						<tbody id="td_bind">
-								
-								
-						</tbody>
-					</table>
+					<div class="row" style="width: 100%;margin: 0;">
+
+						<div class="col-sm-2" style="border-radius: 8px;background: #fff; margin: 0;padding: 0;margin-top: 69px;">
+
+
+					
+
+
+									<h5 style="background: #36304A;
+									border-radius: 8px 8px 0 0px;
+									color: #fff;
+									padding: 16px 15px;">Filters</h5>
+
+									<!-- Section: Condition -->
+									<section class="mb-4" style="padding: 10px 32px;">
+
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="new">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="new">City
+
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="new">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="new">County
+
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="new">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="new">Redfin Median Sale Price (30 Days)
+											</label>
+										</div>
+
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="used">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="used">Redfin DOM (30 Days)
+											</label>
+										</div>
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="collectible">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">Homes Sold (30 Days)
+											</label>
+										</div>
+										<div class="form-check pl-0 mb-3 pb-1">
+											<input type="checkbox" class="form-check-input filled-in" id="renewed">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="renewed">Distress Tier
+											</label>
+										</div>
+										
+										<div class="form-check pl-0 mb-3 pb-1">
+											<input type="checkbox" class="form-check-input filled-in" id="renewed">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="renewed">Population Density Per Square Mile Number
+
+											</label>
+										</div>
+
+									</section>
+
+
+							
+							<!-- Section: Sidebar -->
+
+
+						</div>
+
+						<div class="col-sm-10">
+
+							<table id="myTable">
+								<thead>
+									<tr class="table100-head">
+										<th class="column1">#</th>
+										<th class="column2">Title</th>
+										<th class="column3">Sale Price</th>
+										<th class="column4">Days on Market</th>
+										<th class="column5">Total Homes Sold</th>
+									</tr>
+								</thead>
+								<tbody id="td_bind">
+
+									
+
+								</tbody>
+							</table>
+
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 
-	
- 
+
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
 
 
 
 	<script>
+		$(document).ready(function () {
+			$('#myTable').DataTable();
+		});
 
-getData();
+		getData();
 
-setInterval(function(){ getData(); }, 6000);
+		setInterval(function () {
+			getData();
+		}, 6000);
 
-		  
 
-		function addData(){
 
-			$(".spinner-border").show();
-			$('#add_databtn').prop('disabled', true);
-			$('#add_databtn').css('background-color', '#73689a');
+		function addData() {
+
+			$("#gif_img").show();
+			$("#add_refreh").hide();
+
+			//return false
+			
 
 			$.ajax({
 				type: "POST",
 				url: "/api/addData",
 				cache: false,
-				success: function(data){
-					$('#add_databtn').prop('disabled', false);
-			       $('#add_databtn').css('background-color', '#36304a');
+				success: function (data) {
+
+					console.log(data);
+					$("#gif_img").hide();
+					$("#add_refreh").show();
 				}
-				});
-				
+			});
+
 		}
 
 
-		function getData(){
+		function getData() {
 			$.ajax({
 				type: "GET",
 				url: "/api/getData",
 				cache: false,
-				success: function(data){
-					 console.log(data)
+				success: function (data) {
+					console.log(data)
 
-					 var res = data.data;
-					 $("#td_bind").html('');
+					var res = data.data;
+					$("#td_bind").html('');
 
-					   for(let i = 0; i  <res.length; i++){
-						     var c = i +1;
-						       var html = '<tr>'+
-									'<td class="column1">'+c+'</td>'+
-									'<td class="column2">'+res[i].title+'</td>'+
-									'<td class="column3">'+res[i].saleprice+'</td>'+
-									'<td class="column4">'+res[i].Days_on_Market+'</td>'+
-									'<td class="column5">'+res[i].Total_Homes_Sold+'</td>'+
-								'</tr>';
+					for (let i = 0; i < res.length; i++) {
+						var c = i + 1;
+						var html = '<tr>' +
+							'<td class="column1">' + c + '</td>' +
+							'<td class="column2">' + res[i].title + '</td>' +
+							'<td class="column3">' + res[i].saleprice + '</td>' +
+							'<td class="column4">' + res[i].Days_on_Market + '</td>' +
+							'<td class="column5">' + res[i].Total_Homes_Sold + '</td>' +
+							'</tr>';
 
-								$("#td_bind").append(html);
-					   }
+						$("#td_bind").append(html);
+					}
 				}
-				});
+			});
 		}
 	</script>
 
 </body>
+
 </html>

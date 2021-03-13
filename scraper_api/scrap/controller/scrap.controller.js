@@ -2,6 +2,7 @@ const ScrapModel = require('../modal/scrap.model');
 var readxlsx = require('xlsx');
 const rp = require('request-promise');
 const $ = require('cheerio');
+const fs = require('fs');
 
 
 
@@ -22,37 +23,50 @@ exports.getData = (req, res) => {
 
 exports.addData = (req, res) => {
 
+var workbook = readxlsx.readFile('./Zip_Code_Analysisr.xlsx');
+var sheet_name_list = workbook.SheetNames;
+console.log("!hererer")
 
-    var data = [
-        {"zip":"44510"},
-        {"zip":"76621"},
-        {"zip":"21005"},
-        {"zip":"44510"},
-        {"zip":"76621"},
-        {"zip":"79606"},
-        {"zip":"79607"},
-        {"zip":"61410"},
-        {"zip":"24210"},
-        {"zip":"24211"},
-        {"zip":"19001"},
-        {"zip":"70420"},
-        {"zip":"59001"},
-        {"zip":"79603"},
-        {"zip":"79607"},
-        {"zip":"54101"},
-        {"zip":"20607"},
-        {"zip":"93510"},
-        {"zip":"30101"}
-]
-var interval = 20000; // 10 seconds;
+sheet_name_list.forEach(function(y) {
 
-
-for(let i=0; i < data.length; i++){
-
+  var interval = 5000; // 10 seconds;
+  var count =  1;
   setTimeout( async function (i) {
+    var worksheet = workbook.Sheets[y];
+    //console.log(worksheet)
+    var headers = {};
+    var data = [];
+    var new_data = [];
+    var zipcode = [];
+
+    
+    for(z in worksheet) {
+        if(z[0] === '!') continue;
+        //parse out the column, row, and value
+        var tt = 0;
+        for (var i = 0; i < z.length; i++) {
+            if (!isNaN(z[i])) {
+                tt = i;
+                break;
+            }
+        };
+        var col = z.substring(0,tt);
+        var row = parseInt(z.substring(tt));
+        var value = worksheet[z].v;
+
+        //console.log(col,'--',value);
+        
+       
+
+        if(col=='B'){
+
+          zipcode.push({'zip':value});
+
+
+            if(count < 1000){
            
-                ///console.log(col,'--',value);
-                const url = 'https://www.redfin.com/zipcode/'+data[i].zip+'/housing-market';
+               // /console.log(col,'--',value);
+                const url = 'https://www.redfin.com/zipcode/'+value+'/housing-market';
 
                 let options = {
                     uri: url,
@@ -86,9 +100,11 @@ for(let i=0; i < data.length; i++){
 
                     ScrapModel.addData(data)
                         .then((result) => {
+
+                          console.log(result)
                             if(result){
                                 //return res.send({status:false, message: ''});
-                                console.log(result);
+                               // console.log(result);
                             }else{
                                 
                             }
@@ -100,22 +116,53 @@ for(let i=0; i < data.length; i++){
                   .catch(function(err) {
                     console.log(err)
                   });
-              
+                }
 
-            }, interval * i, i);
-
+                 
 
                   //console.log(new_data.length)
                   //console.log(new_data)
                 
+        }else{
+
+            if(count==50){
+              //res.send({status:true})
+            }
+            
         }
-    
 
-   
-    
-   
+        count++;
+     //   console.log(count)
 
-   
+
+        // let data = JSON.stringify(zipcode);
+        // fs.writeFileSync('zipcode-2.json', data);
+
+        //store header names
+        if(row == 1 && value) {
+            headers[col] = value;
+            continue;
+        }
+
+
+        if(!data[row]) data[row]={};
+        data[row][headers[col]] = value;
+        //console.log(data[row][headers[col]])
+       // console.log(value)
+    }
+  
+    //drop those first two rows which are empty
+    data.shift();
+    data.shift();
+   /// console.log(data);
+
+  }, interval * count, count);
+
+
+});
+
+
+
     
 };
 
