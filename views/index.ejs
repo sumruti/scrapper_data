@@ -48,6 +48,9 @@
 		/* table thead tr th {
 			width: 100px!important;
 		} */
+		.dataTables_scrollBody{
+			height: 800px;
+		}
 	</style>
 </head>
 
@@ -518,34 +521,34 @@
 					for (let i = 0; i < res.length; i++) {
 						var c = i + 1;
 						 var html =  '<tr>'+
-										  '<td class="City">'+c+'</td>'+
+										  '<td class="">'+c+'</td>'+
 										  '<td class="City">'+res[i].City+'</td>'+
-										  '<td>'+res[i].Zip_Code+'</td>'+
-										  '<td>'+res[i].County+'</td>'+
-										  '<td><b>'+res[i].Redfin_Median_Sale_Price_+'</b></td>'+
-										  '<td>'+res[i].Redfin_Change_in_Sales_price_from_Last_Year+'</td>'+
-										  '<td>'+res[i].Sold_Under_List_Price+'</td>'+
+										  '<td class="zipcode">'+res[i].Zip_Code+'</td>'+
+										  '<td class="County">'+res[i].County+'</td>'+
+										  '<td class="Redfin_Median_Sale_Price"><b>'+res[i].Redfin_Median_Sale_Price_+'</b></td>'+
+										  '<td  class="Sold_Under_List_Price">'+res[i].Redfin_Change_in_Sales_price_from_Last_Year+'</td>'+
+										  '<td class="zipcode">'+res[i].Sold_Under_List_Price+'</td>'+
 
-										  '<td><b>'+res[i].Redfin_DOM_+'</b></td>'+
-										 '<td><b>'+res[i].Homes_Sold_+'</b></td>'+
-										 '<td>'+res[i].Cash_Sales_2018_2019+'</td>'+
-										  '<td>'+res[i].Cash_Sales_2019_2020+'</td>'+
-										  '<td>`'+res[i].Population+'</td>'+
+										  '<td class="Redfin_DOM"><b>'+res[i].Redfin_DOM_+'</b></td>'+
+										 '<td class="Homes_Sold"><b>'+res[i].Homes_Sold_+'</b></td>'+
+										 '<td class="2018_2019_Cash_Sales">'+res[i].Cash_Sales_2018_2019+'</td>'+
+										  '<td class="2019_2020_Cash_Sales ">'+res[i].Cash_Sales_2019_2020+'</td>'+
+										  '<td class="Population"> '+res[i].Population+'</td>'+
 
-										  '<td>'+res[i].Minority_Share+'</td>'+
-										  '<td></td>'+
-										  '<td>'+res[i].High_School_Diploma+'</td>'+
-										  '<td>'+res[i].Poverty_Rate+'</td>'+
-										  '<td>'+res[i].Adults_not_Working+'</td>'+
+										  '<td class="Minority_Share">'+res[i].Minority_Share+'</td>'+
+										  '<td class="Density"></td>'+
+										  '<td class="High_School_Diploma">'+res[i].High_School_Diploma+'</td>'+
+										  '<td class="Poverty_Rate">'+res[i].Poverty_Rate+'</td>'+
+										  '<td class="of_Adults_not_Working">'+res[i].Adults_not_Working+'</td>'+
 
-										  '<td>'+res[i].Housing_Vacancy_Rate+'</td>'+
-										  '<td>'+res[i].Median_Income_Ratio+'</td>'+
-										  '<td>'+res[i].Distress_Rank_within+'</td>'+
-										  '<td>'+res[i].Distress_Rank_within_State+'</td>'+
-										  '<td>'+res[i].Total_Number_of_Zips_in_State+'</td>'+
+										  '<td class="Housing_Vacancy_Rate">'+res[i].Housing_Vacancy_Rate+'</td>'+
+										  '<td class="Median_Income_Ratio">'+res[i].Median_Income_Ratio+'</td>'+
+										  '<td class="Distress_Rank_within_U_S">'+res[i].Distress_Rank_within+'</td>'+
+										  '<td class="Distress_Rank_within_State">'+res[i].Distress_Rank_within_State+'</td>'+
+										  '<td class="Total_Number_of_Zips_in_State">'+res[i].Total_Number_of_Zips_in_State+'</td>'+
 
-										  '<td>'+res[i].Distress_Tier+'</td>'+
-										  '<td>'+res[i].Population_Density_Per_Square_Mile_Number+'</td>'+
+										  '<td class="Distress_Tier">'+res[i].Distress_Tier+'</td>'+
+										  '<td class="Population_Density_Per_Square_Mile_Number">'+res[i].Population_Density_Per_Square_Mile_Number+'</td>'+
 										  
 									  '</tr>';
 
