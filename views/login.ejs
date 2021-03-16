@@ -100,12 +100,12 @@ span.psw {
                       
                         <div class="container">
                           <label for="uname"><b>Username</b></label>
-                          <input type="text" placeholder="Enter Username" name="uname" required>
+                          <input type="text" placeholder="Enter Username" name="uname"  id="email" required>
                       
                           <label for="psw"><b>Password</b></label>
-                          <input type="password" placeholder="Enter Password" name="psw" required>
+                          <input type="password" placeholder="Enter Password" name="psw" id="password" required>
                           <div class="btn_" style="width: 29%;margin: auto;">
-                              <button type="button" onclick="login()">Login</button>
+                              <button type="button" onclick="login()" >Login</button>
                           </div>
                           
                         </div>
@@ -131,7 +131,34 @@ span.psw {
 
 		function login(){
 
-			    window.location = "/";
+			    //window.location = "/";
+
+
+          var data = {
+              email:$("#email").val(),
+              password:$("#password").val(),
+          }
+
+          var request = $.ajax({
+            url: "/api/updateHeader",
+            type: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+              },
+              data: JSON.stringify(data),
+            
+              });
+
+          request.done(function(data) {
+              getHeader();
+
+            
+          
+          });
+
+          request.fail(function(jqXHR, textStatus) {
+            alert( "Request failed: " + textStatus );
+          });
 				
 		}
 

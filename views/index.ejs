@@ -42,6 +42,12 @@
 		a#myTable_next {
 			color: #fff !important;
 		}
+		th.column1_ {
+			font-size: 13px;
+		}
+		/* table thead tr th {
+			width: 100px!important;
+		} */
 	</style>
 </head>
 
@@ -51,6 +57,17 @@
 		<div class="container-table100">
 			<div class="wrap-table100">
 				<div class="table100">
+					<div class="export_t_ex" style="    float: left;">
+
+						<button id="add_databtn" type="button" style="float: right;
+						background: #36304a;
+						padding: 11px 33px;
+						border-radius: 12px;
+						margin-top: 21px;
+						margin-bottom: 16px;
+						color: #fff;" > <span style="display: none;" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Export to excel</button>
+
+					</div>
 
 
 					<div style="margin-bottom: 23px;">
@@ -98,24 +115,27 @@
 
 
 					<div class="row" style="width: 100%;margin: 0;">
+						
 
 						<div class="col-sm-2" style="border-radius: 8px;background: #fff; margin: 0;padding: 0;margin-top: 69px;">
+
+
 
 
 					
 
 
-									<h5 style="background: #36304A;
+									<h5 style="background: gray;
 									border-radius: 8px 8px 0 0px;
 									color: #fff;
+									font-size: 13px;
 									padding: 16px 15px;">Filters</h5>
 
 									<!-- Section: Condition -->
 									<section class="mb-4" style="padding: 10px 32px;">
 
-
 										<div class="form-check pl-0 mb-3">
-											<input type="checkbox" class="form-check-input filled-in" id="new">
+											<input type="checkbox" class="form-check-input filled-in" id="City" onclick="updateFilter('City','City')">
 											<label class="form-check-label small text-uppercase card-link-secondary"
 												for="new">City
 
@@ -123,7 +143,17 @@
 										</div>
 
 										<div class="form-check pl-0 mb-3">
-											<input type="checkbox" class="form-check-input filled-in" id="new">
+											<input type="checkbox" class="form-check-input filled-in" id="zipcode" onclick="updateFilter('zipcode','zipcode')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="new">Zip Code
+
+											</label>
+										</div>
+
+									
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="County" onclick="updateFilter('County','County')">
 											<label class="form-check-label small text-uppercase card-link-secondary"
 												for="new">County
 
@@ -131,34 +161,152 @@
 										</div>
 
 										<div class="form-check pl-0 mb-3">
-											<input type="checkbox" class="form-check-input filled-in" id="new">
+											<input type="checkbox" class="form-check-input filled-in" id="Redfin_Median_Sale_Price" onclick="updateFilter('Redfin_Median_Sale_Price','Redfin_Median_Sale_Price')">
 											<label class="form-check-label small text-uppercase card-link-secondary"
 												for="new">Redfin Median Sale Price (30 Days)
 											</label>
 										</div>
 
 
+										
+
+										<div class="form-check pl-0 mb-3 pb-1">
+											<input type="checkbox" class="form-check-input filled-in" id="Redfin_Change_in_Sales" onclick="updateFilter('Redfin_Change_in_Sales','Redfin_Change_in_Sales')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="renewed">Redfin % Change in Sales price from Last Year
+
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3 pb-1">
+											<input type="checkbox" class="form-check-input filled-in" id="Sold_Under_List_Price" onclick="updateFilter('Sold_Under_List_Price','Sold_Under_List_Price')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="renewed">Sold Under List Price
+
+											</label>
+										</div>
+
+										
+
 										<div class="form-check pl-0 mb-3">
-											<input type="checkbox" class="form-check-input filled-in" id="used">
+											<input type="checkbox" class="form-check-input filled-in" id="Redfin_DOM" onclick="updateFilter('Redfin_DOM','Redfin_DOM')">
 											<label class="form-check-label small text-uppercase card-link-secondary"
 												for="used">Redfin DOM (30 Days)
 											</label>
 										</div>
 										<div class="form-check pl-0 mb-3">
-											<input type="checkbox" class="form-check-input filled-in" id="collectible">
+											<input type="checkbox" class="form-check-input filled-in" id="Homes_Sold" onclick="updateFilter('Homes_Sold','Homes_Sold')">
 											<label class="form-check-label small text-uppercase card-link-secondary"
 												for="collectible">Homes Sold (30 Days)
 											</label>
 										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="2018_2019_Cash_Sales" onclick="updateFilter('2018_2019_Cash_Sales','2018_2019_Cash_Sales')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">2018 - 2019 Cash Sales
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="2019_2020_Cash_Sales" onclick="updateFilter('2019_2020_Cash_Sales','2019_2020_Cash_Sales')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">2019 - 2020 Cash Sales
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="Population" onclick="updateFilter('Population','Population')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">Population
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="Minority_Share" onclick="updateFilter('Minority_Share','Minority_Share')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">Minority Share
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="Density" onclick="updateFilter('Density','Density')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">Density
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="High_School_Diploma" onclick="updateFilter('High_School_Diploma','High_School_Diploma')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">% Adults w/o High School Diploma
+
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="Poverty_Rate" onclick="updateFilter('Poverty_Rate','Poverty_Rate')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">Poverty Rate
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="of_Adults_not_Working" onclick="updateFilter('of_Adults_not_Working','of_Adults_not_Working')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">% of Adults not Working
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="Housing_Vacancy_Rate" onclick="updateFilter('Housing_Vacancy_Rate','Housing_Vacancy_Rate')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">Housing Vacancy Rate
+											</label>
+										</div>
+
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="Median_Income_Ratio" onclick="updateFilter('Median_Income_Ratio','Median_Income_Ratio')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">Median Income Ratio
+											</label>
+										</div>
+
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="Distress_Rank_within_U_S" onclick="updateFilter('Distress_Rank_within_U_S','Distress_Rank_within_U_S')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">Distress Rank within U.S.
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="Distress_Rank_within_State" onclick="updateFilter('Distress_Rank_within_State','Distress_Rank_within_State')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">Distress Rank within State
+											</label>
+										</div>
+
+										<div class="form-check pl-0 mb-3">
+											<input type="checkbox" class="form-check-input filled-in" id="Total_Number_of_Zips_in_State" onclick="updateFilter('Total_Number_of_Zips_in_State','Total_Number_of_Zips_in_State')">
+											<label class="form-check-label small text-uppercase card-link-secondary"
+												for="collectible">Total Number of Zips in State
+											</label>
+										</div>
+
+
 										<div class="form-check pl-0 mb-3 pb-1">
-											<input type="checkbox" class="form-check-input filled-in" id="renewed">
+											<input type="checkbox" class="form-check-input filled-in" id="Distress_Tier"  onclick="updateFilter('Distress_Tier','Distress_Tier')">
 											<label class="form-check-label small text-uppercase card-link-secondary"
 												for="renewed">Distress Tier
 											</label>
 										</div>
+
+									
 										
 										<div class="form-check pl-0 mb-3 pb-1">
-											<input type="checkbox" class="form-check-input filled-in" id="renewed">
+											<input type="checkbox" class="form-check-input filled-in" id="Population_Density_Per_Square_Mile_Number" onclick="updateFilter('Population_Density_Per_Square_Mile_Number','Population_Density_Per_Square_Mile_Number')">
 											<label class="form-check-label small text-uppercase card-link-secondary"
 												for="renewed">Population Density Per Square Mile Number
 
@@ -176,19 +324,82 @@
 
 						<div class="col-sm-10">
 
+							
+
 							<table id="myTable">
 								<thead>
 									<tr class="table100-head">
-										<th class="column1">#</th>
-										<th class="column2">Title</th>
-										<th class="column3">Sale Price</th>
-										<th class="column4">Days on Market</th>
-										<th class="column5">Total Homes Sold</th>
+										<th class="column1_ " style="width:10px!important" >#</th>
+										<th class="column1_ City"  >City</th>
+										<th class="column1_ zipcode" style="display: none;">Zip Code</th>
+										<th class="column1_ County" style="display: none;">County</th>
+										
+
+										<th class="column1_ Redfin_Median_Sale_Price" style="display: none;">Redfin Median Sale Price (30 Days)</th>
+
+										
+										
+										<th class="column1_ Redfin_Change_in_Sales" style="display: none;">REDFIN % CHANGE IN SALES PRICE FROM LAST YEAR</th>
+										<th class="column1_ Sold_Under_List_Price" style="display: none;">SOLD UNDER LIST PRICE
+										</th>
+									
+										</th>
+										<th class="column1_ Redfin_DOM" style="display: none;">Redfin DOM (30 Days)</th>
+										
+										<th class="column1_ Homes_Sold" style="display: none;">HOMES SOLD (30 DAYS)</th>
+										
+
+										<th class="column1_ 2018_2019_Cash_Sales" style="display: none;">2018 - 2019 CASH SALES
+										</th>
+										<th class="column1_ 2019_2020_Cash_Sales" style="display: none;">2019 - 2020 CASH SALES
+										</th>
+										<th class="column1_ Population" style="display: none;">POPULATION
+										</th>
+
+										<th class="column1_ Minority_Share" style="display: none;">MINORITY SHARE
+
+										</th>
+										<th class="column1_ Density" style="display: none;">DENSITY
+										</th>
+
+										<th class="column1_ High_School_Diploma" style="display: none;">% Adults w/o High School Diploma
+										</th>
+										<th class="column1_ Poverty_Rate" style="display: none;">POVERTY RATE
+
+										</th>
+										<th class="column1_ of_Adults_not_Working" style="display: none;">% OF ADULTS NOT WORKING
+
+										</th>
+										<th class="column1_ Housing_Vacancy_Rate" style="display: none;">HOUSING VACANCY RATE
+
+										</th>
+
+										<th class="column1_ Median_Income_Ratio" style="display: none;">MEDIAN INCOME RATIO
+
+
+										</th>
+
+
+
+										<th class="column1_ Distress_Rank_within_U_S" style="display: none;">DISTRESS RANK WITHIN U.S.
+										</th>
+
+										<th class="column1_ Distress_Rank_within_State" style="display: none;">DISTRESS RANK WITHIN STATE
+										</th>
+
+										<th class="column1_ Total_Number_of_Zips_in_State" style="display: none;">TOTAL NUMBER OF ZIPS IN STATE
+										</th>
+
+										
+
+
+
+										<th class="column1_ Distress_Tier" style="display: none;">Distress Tier</th>
+										<th class="column1_ Population_Density_Per_Square_Mile_Number"  style="display: none;">Population Density Per Square Mile Number</th>
 									</tr>
 								</thead>
 								<tbody id="td_bind">
-
-									
+                                     
 
 								</tbody>
 							</table>
@@ -210,14 +421,63 @@
 
 
 	<script>
-		$(document).ready(function () {
-			$('#myTable').DataTable();
-		});
+		// $(document).ready(function () {
+		// 	$('#myTable').DataTable({
+		// 		"scrollX": true
+		// 	});
+			
+
+		// 	$($.fn.dataTable.tables(true)).DataTable() .columns.adjust();
+
+
+		// });
+
+		$(document).ready(function() {
+			$('#myTable').dataTable({
+				"bPaginate": false,
+				"bLengthChange": false,
+				"bFilter": true,
+				"bInfo": false,
+				"scrollX": true,
+				"bAutoWidth": false });
+			});
+
+
+
+		function updateFilter(flag,id){
+            var data = {
+				title:flag,
+				  status:$("#"+id).is(':checked'),
+			}
+
+			var request = $.ajax({
+				url: "/api/updateHeader",
+				type: "POST",
+				headers: {
+					'Content-Type': 'application/json'
+			    },
+			    data: JSON.stringify(data),
+				
+	       	});
+
+			request.done(function(data) {
+			    getHeader();
+
+				
+			
+			});
+
+			request.fail(function(jqXHR, textStatus) {
+				alert( "Request failed: " + textStatus );
+			});
+			  
+		}
 
 		getData();
+		getHeader();
 
 		setInterval(function () {
-			getData();
+			//getData();
 		}, 6000);
 
 
@@ -251,22 +511,68 @@
 				url: "/api/getData",
 				cache: false,
 				success: function (data) {
-					console.log(data)
 
 					var res = data.data;
 					$("#td_bind").html('');
 
 					for (let i = 0; i < res.length; i++) {
 						var c = i + 1;
-						var html = '<tr>' +
-							'<td class="column1">' + c + '</td>' +
-							'<td class="column2">' + res[i].title + '</td>' +
-							'<td class="column3">' + res[i].saleprice + '</td>' +
-							'<td class="column4">' + res[i].Days_on_Market + '</td>' +
-							'<td class="column5">' + res[i].Total_Homes_Sold + '</td>' +
-							'</tr>';
+						 var html =  '<tr>'+
+										  '<td class="City">'+c+'</td>'+
+										  '<td class="City">'+res[i].City+'</td>'+
+										  '<td>'+res[i].Zip_Code+'</td>'+
+										  '<td>'+res[i].County+'</td>'+
+										  '<td><b>'+res[i].Redfin_Median_Sale_Price_+'</b></td>'+
+										  '<td>'+res[i].Redfin_Change_in_Sales_price_from_Last_Year+'</td>'+
+										  '<td>'+res[i].Sold_Under_List_Price+'</td>'+
+
+										  '<td><b>'+res[i].Redfin_DOM_+'</b></td>'+
+										 '<td><b>'+res[i].Homes_Sold_+'</b></td>'+
+										 '<td>'+res[i].Cash_Sales_2018_2019+'</td>'+
+										  '<td>'+res[i].Cash_Sales_2019_2020+'</td>'+
+										  '<td>`'+res[i].Population+'</td>'+
+
+										  '<td>'+res[i].Minority_Share+'</td>'+
+										  '<td></td>'+
+										  '<td>'+res[i].High_School_Diploma+'</td>'+
+										  '<td>'+res[i].Poverty_Rate+'</td>'+
+										  '<td>'+res[i].Adults_not_Working+'</td>'+
+
+										  '<td>'+res[i].Housing_Vacancy_Rate+'</td>'+
+										  '<td>'+res[i].Median_Income_Ratio+'</td>'+
+										  '<td>'+res[i].Distress_Rank_within+'</td>'+
+										  '<td>'+res[i].Distress_Rank_within_State+'</td>'+
+										  '<td>'+res[i].Total_Number_of_Zips_in_State+'</td>'+
+
+										  '<td>'+res[i].Distress_Tier+'</td>'+
+										  '<td>'+res[i].Population_Density_Per_Square_Mile_Number+'</td>'+
+										  
+									  '</tr>';
 
 						$("#td_bind").append(html);
+					}
+				}
+			});
+		}
+
+		function getHeader() {
+			$.ajax({
+				type: "GET",
+				url: "/api/getHeader",
+				cache: false,
+				success: function (data) {
+
+					var res = data.data;
+
+					for (let i = 0; i < res.length; i++) {
+						 console.log(res[i].status)
+						 if(res[i].status=='true'){
+							$('#'+res[i].title).prop('checked', true);
+							$('.'+res[i].title).show();
+						 }else{
+							$('.'+res[i].title).hide();
+							$('#'+res[i].title).prop('checked', false);
+						 }
 					}
 				}
 			});

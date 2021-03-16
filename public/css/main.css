@@ -115,7 +115,7 @@ iframe {
     justify-content: center;
     flex-wrap: wrap;
     padding: 71px 28px;
-  padding: 33px 30px;
+  padding: 0px 30px;
 }
 
 .wrap-table100 {
@@ -140,7 +140,7 @@ table td, table th {
 }
 table thead tr {
   height: 60px;
-  background: #36304a;
+  background: gray
 }
 table tbody tr {
   height: 50px;
